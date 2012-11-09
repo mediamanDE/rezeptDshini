@@ -31,8 +31,10 @@
 			'items'=>array(
 				array('label'=>'Recipes', 'url'=>array('/recipe/index')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
+				array('label'=>'Emotional ', 'url'=>array('/emotional/index'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Rational ', 'url'=>array('/rational/index'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)),
+			
 		)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>

@@ -9,12 +9,8 @@ class m121107_124248_create_recipe_table extends CDbMigration
 			'title' => 'string',
 			'ingredients' => 'text',
 			'preparation' => 'text',
-			'emotional' => 'int',
-			'rational' => 'int',
 			'create'=> 'DATETIME',
 			'update'=> 'DATETIME',
-
-
 		));
 	}
 

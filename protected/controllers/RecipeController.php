@@ -8,6 +8,8 @@ class RecipeController extends Controller
 	 */
 	public $layout='//layouts/column2';
 
+
+
 	/**
 	 * @return array action filters
 	 */
@@ -52,6 +54,7 @@ class RecipeController extends Controller
 		));
 	}
 
+	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -66,6 +69,9 @@ class RecipeController extends Controller
 		if(isset($_POST['Recipe']))
 		{
 			$model->attributes=$_POST['Recipe'];
+
+			$model->emotional = (isset($_POST['Emotional'])) ? ($_POST['Emotional']) : array();
+			$model->rational = (isset($_POST['Rational'])) ? ($_POST['Rational']) : array();
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -90,6 +96,10 @@ class RecipeController extends Controller
 		if(isset($_POST['Recipe']))
 		{
 			$model->attributes=$_POST['Recipe'];
+
+			$model->emotional = (isset($_POST['Emotional'])) ? ($_POST['Emotional']) : array();
+			$model->rational = (isset($_POST['Rational'])) ? ($_POST['Rational']) : array();
+
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -139,7 +149,7 @@ class RecipeController extends Controller
 		));
 	}
 
-	public function actionGetRecipe($token="", $emotional = null, $rational = null)
+	public function actionGetRecipe($token="", $emotional = "", $rational = "")
 	{
 		if ($token !== "AH7s8ajSzhs") {
 			print  "Kein gültiger token!";
@@ -151,13 +161,19 @@ class RecipeController extends Controller
 
 		$criteria=new CDbCriteria;
 
-		if ($emotional !== null) 
-			$criteria->addCondition('recipeEMOTIONAL=:recipeEMOTIONAL');
+		$emoCon = ($emotional !== "") ?'emotional.id=' .  mysql_real_escape_string($emotional) : "";
 
-		if ($rational !== null) 
-			$criteria->addCondition('recipeRATIONAL=:recipeRATIONAL', 'AND');
-		
-		$criteria->params=array(':recipeEMOTIONAL'=>$emotional, 'recipeRATIONAL' => $rational);
+		$ratCon = ($rational !== "") ? 'rational.id=' . mysql_real_escape_string($rational) : "";
+
+		$criteria->with = array(
+			'emotional' => array(
+				 'condition' => $emoCon,
+			),
+			'rational' => array(
+				 'condition' => $ratCon ,
+			)
+		);
+	
 		$recipes = Recipe::model()->findAll($criteria);
 
 		$recipeCount = count($recipes);
@@ -175,7 +191,7 @@ class RecipeController extends Controller
 	{
 	    print $recipe->title;
 	    print $recipe->ingredients;
-	    print $recipe->emotional;
+	    //print $recipe->emotional;
 
 	}
 
@@ -186,7 +202,7 @@ class RecipeController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Recipe::model()->findByPk($id);
+		$model=Recipe::model()->with('emotional', 'rational')->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

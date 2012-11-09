@@ -34,28 +34,36 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'emotional'); ?>
-		<?php echo $form->dropDownList($model,'emotional', array(
-			'deftig',
-			'leicht',
-			'süß',
-			'ausgefallen/ abgefahren',
-			'saisonal',
-			'Sportlernahrung (viele Kohlenhydrate)',
-			'Schlank im Schlaf (Hoher Eiweißanteil)',
 
-		)); ?>
+		<?php echo $form->labelEx($model,'emotional'); ?>
+
+		<?php 
+			$selectedEmotional = array(); 
+			
+			foreach($model->emotional as $emotional) array_push($selectedEmotional, $emotional['id']);
+		?>
+		<div class="row">
+			<div class="portlet-content">
+			<?php echo CHtml::checkBoxList('Emotional', $selectedEmotional, CHtml::listData(Emotional::model()->findAll(),'id','title'),array('template'=>'{input} {label}','labelOptions'=>array('style'=>'display:inline;'))); ?>
+			</div>
+		</div>
+
 		<?php echo $form->error($model,'emotional'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'rational'); ?>
-		<?php echo $form->dropDownList($model,'rational', array(
-			'vegetarisch',
-			'vegan',
-			'Mit Fleisch',
-			'Mit Fisch',
-		)); ?>
+		
+		<?php 
+			$selectedRational = array(); 
+			foreach($model->rational as $rational) array_push($selectedRational, $rational['id']);
+		?>
+		<div class="row">
+			<div class="portlet-content">
+			<?php echo CHtml::checkBoxList('Rational', $selectedRational, CHtml::listData(Rational::model()->findAll(),'id','title'),array('template'=>'{input} {label}','labelOptions'=>array('style'=>'display:inline;'))); ?>
+			</div>
+		</div>
+
 		<?php echo $form->error($model,'rational'); ?>
 	</div>
 

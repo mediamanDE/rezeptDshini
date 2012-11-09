@@ -9,4 +9,12 @@ class MActiveRecord extends CActiveRecord{
 	 
 	    return parent::beforeSave();
 	}
+
+	public function behaviors()
+	{
+	    return array(
+	        'activerecord-relation'=>array(
+	            'class'=>'ext.yiiext.behaviors.activerecord-relation.EActiveRecordRelationBehavior',
+	    ));
+	}
 }

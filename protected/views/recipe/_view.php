@@ -22,22 +22,27 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('emotional')); ?>:</b>
-	<?php echo CHtml::encode($data->emotional); ?>
-	<br />
+		<div class="portlet-content">
+			<?php foreach($data->emotional as $emotional) { ?>
+				<span> <?php echo CHtml::encode($emotional->title)."  ";?> </span>
+			<?php }?>
+		</div>
+
+
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('rational')); ?>:</b>
-	<?php echo CHtml::encode($data->rational); ?>
+		<div class="portlet-content">
+			<?php foreach($data->rational as $rational) { ?>
+				<span> <?php echo CHtml::encode($rational->title)."  ";?> </span>
+			<?php }?>
+		</div>
+	
+	<?php 
+		$selectedRational = array(); 
+		foreach($data->rational as $rational) array_push($selectedRational, $rational->id);
+	?>
+	
+		
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('create')); ?>:</b>
-	<?php echo CHtml::encode($data->create); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('update')); ?>:</b>
-	<?php echo CHtml::encode($data->update); ?>
-	<br />
-
-	*/ ?>
 
 </div>

@@ -15,6 +15,7 @@
  */
 class Recipe extends MActiveRecord
 {
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -41,7 +42,6 @@ class Recipe extends MActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('emotional, rational', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			array('ingredients, preparation, create, update', 'safe'),
 			// The following rule is used by search().
@@ -58,6 +58,10 @@ class Recipe extends MActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				'emotional' => array(self::MANY_MANY, 'Emotional',
+                	'recipe_emotional(recipe_id, emotional_id)'),
+				'rational' => array(self::MANY_MANY, 'Rational',
+	                'recipe_rational(recipe_id, rational_id)'),
 		);
 	}
 

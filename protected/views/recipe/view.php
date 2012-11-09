@@ -25,9 +25,7 @@ $this->menu=array(
 		'title',
 		'ingredients',
 		'preparation',
-		'emotional',
-		'rational',
-		'create',
-		'update',
+		// 'emotional',
+		// 'rational',
 	),
 )); ?>
