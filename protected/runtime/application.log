@@ -1,0 +1,216 @@
+2012/11/07 15:29:52 [error] [exception.CException] exception 'CException' with message 'SiteController cannot find the requested view "index".' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php:879
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(783): CController->renderPartial('index', NULL, true)
+#1 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\SiteController.php(32): CController->render('index')
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('')
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('')
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#9 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/
+HTTP_REFERER=http://root.dev/
+---
+2012/11/07 15:32:38 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.loggedIn" is not defined.' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CComponent.php:131
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\auth\CWebUser.php(141): CComponent->__get('loggedIn')
+#1 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\SiteController.php(30): CWebUser->__get('loggedIn')
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('')
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('')
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#9 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/
+HTTP_REFERER=http://root.dev/
+---
+2012/11/07 15:32:39 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.loggedIn" is not defined.' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CComponent.php:131
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\auth\CWebUser.php(141): CComponent->__get('loggedIn')
+#1 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\SiteController.php(30): CWebUser->__get('loggedIn')
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('')
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('')
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#9 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/
+HTTP_REFERER=http://root.dev/
+---
+2012/11/07 15:32:39 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.loggedIn" is not defined.' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CComponent.php:131
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\auth\CWebUser.php(141): CComponent->__get('loggedIn')
+#1 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\SiteController.php(30): CWebUser->__get('loggedIn')
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(50): SiteController->actionIndex()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('')
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('')
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#9 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/
+HTTP_REFERER=http://root.dev/
+---
+2012/11/07 15:33:05 [error] [exception.CException] exception 'CException' with message 'SiteController cannot find the requested view "login".' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php:879
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(783): CController->renderPartial('login', Array, true)
+#1 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\SiteController.php(72): CController->render('login', Array)
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(50): SiteController->actionLogin()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(287): CController->runAction(Object(CInlineAction))
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('login')
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('site/login')
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#9 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/index.php?r=site/login
+HTTP_REFERER=http://root.dev/
+---
+2012/11/07 15:56:43 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mm_mediaman_rezeptdschini.recpie' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `recpie`.
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php (13)
+2012/11/07 15:58:18 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mm_mediaman_rezeptdschini.tbl_migration' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `tbl_migration`.
+2012/11/07 15:58:24 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mm_mediaman_rezeptdschini.recpie' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `recpie`.
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php (13)
+2012/11/07 15:58:26 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mm_mediaman_rezeptdschini.recpie' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `recpie`.
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php (13)
+2012/11/07 15:59:27 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\auth\CAccessControlFilter.php:170
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\auth\CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(292): CFilterChain->run()
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('admin')
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('recipe/admin')
+#9 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/index.php?r=recipe/admin
+HTTP_REFERER=http://root.dev/mm_MEDIAMAN_rezeptdschini/index.php?r=recipe/create
+---
+2012/11/07 16:27:32 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\auth\CAccessControlFilter.php:170
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\auth\CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(292): CFilterChain->run()
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('getrecipe')
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('recipe/getrecip...')
+#9 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#10 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/index.php/recipe/getrecipe
+---
+2012/11/07 17:07:44 [error] [exception.CException] exception 'CException' with message 'Property "Recipe.0" is not defined.' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CComponent.php:131
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\db\ar\CActiveRecord.php(144): CComponent->__get('0')
+#1 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CModel.php(593): CActiveRecord->__get('0')
+#2 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\RecipeController.php(158): CModel->offsetGet(0)
+#3 [internal function]: RecipeController->actionGetRecipe(NULL, NULL)
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs(Object(RecipeController), Array)
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(48): CAction->runWithParamsInternal(Object(RecipeController), Object(ReflectionMethod), Array)
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#9 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#10 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#11 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(292): CFilterChain->run()
+#13 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('getrecipe')
+#15 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('recipe/getrecip...')
+#16 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#17 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#18 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/index.php/recipe/getrecipe
+---
+2012/11/07 17:12:00 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php:337
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(310): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(1146): CFilter->filter(Object(CFilterChain))
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(292): CFilterChain->run()
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): CController->run('getrecipe')
+#9 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController('recipe/getrecip...')
+#10 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#11 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/index.php/recipe/getrecipe
+---
+2012/11/07 17:12:59 [error] [php] Object of class Recipe could not be converted to int (C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\RecipeController.php:163)
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(48): CInlineAction->runWithParamsInternal()
+#1 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams()
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(134): RecipeController->runAction()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(1146): CAccessControlFilter->filter()
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CInlineFilter.php(59): RecipeController->filterAccessControl()
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(292): CFilterChain->run()
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): RecipeController->runActionWithFilters()
+#9 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): RecipeController->run()
+#10 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController()
+#11 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#12 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CWebApplication->run()
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/index.php/recipe/getrecipe/?token=AH7s8ajSzhs
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\RecipeController.php (163)
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php (13)
+2012/11/07 17:15:18 [error] [php] Undefined offset: 2 (C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\RecipeController.php:170)
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(48): CInlineAction->runWithParamsInternal()
+#1 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams()
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(134): RecipeController->runAction()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(1146): CAccessControlFilter->filter()
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CInlineFilter.php(59): RecipeController->filterAccessControl()
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(292): CFilterChain->run()
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): RecipeController->runActionWithFilters()
+#9 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): RecipeController->run()
+#10 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController()
+#11 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#12 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CWebApplication->run()
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/index.php/recipe/getrecipe/?token=AH7s8ajSzhs
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\RecipeController.php (170)
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php (13)
+2012/11/07 17:17:35 [error] [php] Undefined variable: recipce (C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\RecipeController.php:178)
+Stack trace:
+#0 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CAction.php(107): ReflectionMethod->invokeArgs()
+#1 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\actions\CInlineAction.php(48): CInlineAction->runWithParamsInternal()
+#2 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(309): CInlineAction->runWithParams()
+#3 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(134): RecipeController->runAction()
+#4 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#5 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(1146): CAccessControlFilter->filter()
+#6 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CInlineFilter.php(59): RecipeController->filterAccessControl()
+#7 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter()
+#8 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(292): CFilterChain->run()
+#9 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CController.php(266): RecipeController->runActionWithFilters()
+#10 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(283): RecipeController->run()
+#11 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\web\CWebApplication.php(142): CWebApplication->runController()
+#12 C:\Users\wirges\workspace\_frameworks\yii-1.1.12\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#13 C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php(13): CWebApplication->run()
+REQUEST_URI=/mm_MEDIAMAN_rezeptdschini/index.php/recipe/getrecipe/?token=AH7s8ajSzhs
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\RecipeController.php (178)
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\protected\controllers\RecipeController.php (170)
+in C:\Users\wirges\workspace\mm_MEDIAMAN_rezeptdschini\index.php (13)
