@@ -30,8 +30,9 @@ String title = "";
 String ingredients = "";
 String preparition_time = "";
 String preparation = "";
-char* parseJson(char *jsonString) ;
-char jsonString[] = "{\"created_at\": \"Mon Nov 12 11:42:44 +0000 2012\",\"id\": 267955583439740930,\"id_str\": \"267955583439740928\",\"text\": \"@Blyzz616 its a capacitor. the board should still work with it. it should be 100uF 25V\",}";
+String line = "";
+boolean startPrint = false;
+
 
 // Initialize the Ethernet client library
 // with the IP address and port of the server 
@@ -44,22 +45,6 @@ void setup() {
    while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
-
-
-  // json stuff
-    Serial.println(jsonString);
-    Serial.println("Starting to parse");
-
-    char* value = parseJson(jsonString);
-
-    if (value) {
-        Serial.print(F("Successfully Parsed: "));
-        Serial.println(value);
-    } else {
-        Serial.print(F("There was some problem in parsing the JSON"));
-    }  
-
-
 
 
   // start the Ethernet connection:
@@ -77,7 +62,7 @@ void setup() {
   if (client.connect(server, 80)) {
     Serial.println("connected");
     // Make a HTTP request:
-    client.println("GET /index.php/recipe/getrecipe/?token=AH7s8ajSzhs&emotional=" + emotional + "&rational=" + rational + " HTTP/1.1");
+    client.println("GET /index.html HTTP/1.1");
     client.println("Host: rezept.dshini.dev.mediaman.de");
     //client.println("GET /index.php/recipe/getrecipe/?token=AH7s8ajSzhs&emotional=" + emotional + "&rational=" + rational + " HTTP/1.1");
     //client.println("Host: rezept.dshini.dev.mediaman.de");
@@ -97,7 +82,21 @@ void loop()
   // from the server, read them and print them:
   if (client.available()) {
     char c = client.read();
-    Serial.print(c);
+    line = line + c;
+    if(c == '\n'){
+      if(startPrint){
+        if(line.startsWith("::")){
+          Serial.print("COMMAND");
+          Serial.print(line);
+        }else{
+          Serial.print(line);
+        }
+      }
+      if(line.startsWith("BEGIN")){
+        startPrint = true;
+      }
+      line = "";
+    }
   }
 
   // if the server's disconnected, stop the client:
