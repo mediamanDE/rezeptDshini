@@ -15,23 +15,11 @@
 
 #include <SPI.h>
 #include <Ethernet.h>
-#include <aJSON.h>
-
-#define FONT_END7F //chars: 0x20-0xFF
 
 // Enter a MAC address for your controller below.
 // Newer Ethernet shields have a MAC address printed on a sticker on the shield
 byte mac[6] = {  0x90, 0xA2, 0xDA, 0x0D, 0x0F, 0xB2 };
 IPAddress server(10,15,20,110); // Google
-
-String emotional = "";
-String rational = "";
-String title = "";
-String ingredients = "";
-String preparition_time = "";
-String preparation = "";
-char* parseJson(char *jsonString) ;
-char jsonString[] = "{\"created_at\": \"Mon Nov 12 11:42:44 +0000 2012\",\"id\": 267955583439740930,\"id_str\": \"267955583439740928\",\"text\": \"@Blyzz616 its a capacitor. the board should still work with it. it should be 100uF 25V\",}";
 
 // Initialize the Ethernet client library
 // with the IP address and port of the server 
@@ -44,24 +32,6 @@ void setup() {
    while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
-
-
-  // json stuff
-    Serial.println(jsonString);
-    Serial.println("Starting to parse");
-
-    char* value = parseJson(jsonString);
-
-    if (value) {
-        Serial.print(F("Successfully Parsed: "));
-        Serial.println(value);
-    } else {
-        Serial.print(F("There was some problem in parsing the JSON"));
-    }  
-
-
-
-
   // start the Ethernet connection:
   if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
@@ -69,6 +39,7 @@ void setup() {
     for(;;)
       ;
   }
+  Serial.println("foo3");
   // give the Ethernet shield a second to initialize:
   delay(1000);
   Serial.println("connecting...");
@@ -77,18 +48,16 @@ void setup() {
   if (client.connect(server, 80)) {
     Serial.println("connected");
     // Make a HTTP request:
-    client.println("GET /index.php/recipe/getrecipe/?token=AH7s8ajSzhs&emotional=" + emotional + "&rational=" + rational + " HTTP/1.1");
+    
     client.println("Host: rezept.dshini.dev.mediaman.de");
-    //client.println("GET /index.php/recipe/getrecipe/?token=AH7s8ajSzhs&emotional=" + emotional + "&rational=" + rational + " HTTP/1.1");
-    //client.println("Host: rezept.dshini.dev.mediaman.de");
-    client.println("Content-Type: application/x-www-form-urlencoded; charset=utf-8");
+    client.println("GET /index.php/recipe/getrecipe/?token=AH7s8ajSzhs HTTP/1.1");
+    //client.println("GET /search?q=arduino HTTP/1.0");
     client.println();
   } 
   else {
     // kf you didn't get a connection to the server:
     Serial.println("connection failed");
   }
-  
 }
 
 void loop()
@@ -110,31 +79,4 @@ void loop()
     for(;;)
       ;
   }
-}
-
-/**
- * Parse the JSON String. Uses aJson library
- * 
- * Refer to http://hardwarefun.com/tutorials/parsing-json-in-arduino
- */
-char* parseJson(char *jsonString) 
-{
-    char* value;
-
-    aJsonObject* root = aJson.parse(jsonString);
-
-    if (root != NULL) {
-        //Serial.println("Parsed successfully 1 " );
-        aJsonObject* created_at = aJson.getObjectItem(root, "created_at"); 
-
-       value = created_at->valuestring;
-    }else{
-      Serial.println('root is NULL');
-    }
-
-    if (value) {
-        return value;
-    } else {
-        return NULL;
-    }
 }
