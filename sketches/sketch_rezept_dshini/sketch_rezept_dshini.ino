@@ -57,16 +57,15 @@ void setup() {
   // give the Ethernet shield a second to initialize:
   delay(1000);
   Serial.println("connecting...");
-
   // if you get a connection, report back via serial:
   if (client.connect(server, 80)) {
     Serial.println("connected");
     // Make a HTTP request:
-    client.println("GET /index.html HTTP/1.1");
+    client.println("GET /index2.html HTTP/1.1");
     client.println("Host: rezept.dshini.dev.mediaman.de");
     //client.println("GET /index.php/recipe/getrecipe/?token=AH7s8ajSzhs&emotional=" + emotional + "&rational=" + rational + " HTTP/1.1");
     //client.println("Host: rezept.dshini.dev.mediaman.de");
-    client.println("Content-Type: application/x-www-form-urlencoded; charset=utf-8");
+    client.println("Content-Type: application/x-www-form-urlencoded; charset=iso-8859-1");
     client.println();
   } 
   else {
