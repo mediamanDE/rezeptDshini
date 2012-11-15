@@ -29,7 +29,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 // Printing results in HTML
 $text = "::BEGIN<br>\n";
-while ($line = mysql_fetch_assoc($result)) {
+if ($line = mysql_fetch_assoc($result)) {
     $text .= '::FETT<br>';
     $text .= $line['title'] . '<br>';
     $text .= '::NORMAL<br>';
@@ -37,12 +37,12 @@ while ($line = mysql_fetch_assoc($result)) {
     $text .= $line['preparation_time'] . '<br>';
     $text .= $line['preparation'] . '<br>';
 }
-$was = array("ä", "ö", "ü", "Ä", "Ö", "Ü", "ß"); 
-$wie = array("ae", "oe", "ue", "Ae", "Oe", "Ue", "ss"); 
+$ersetzen = array( 'ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss', ' ' => '_', '\\' => '-', '/' => '-' );
+$text = strtr($text , $ersetzen );
     
-$out = str_replace($was, $wie, $text); 
+#$out = str_replace($was, $wie, $text); 
 
-echo $out;
+echo 'mist'.$text;
 
 // Free resultset
 mysql_free_result($result);
