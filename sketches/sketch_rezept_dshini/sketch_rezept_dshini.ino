@@ -15,7 +15,6 @@
 
 #include <SPI.h>
 #include <Ethernet.h>
-#include <aJSON.h>
 #include <Adafruit_Thermal.h>
 #include <SoftwareSerial.h>
 
@@ -38,7 +37,7 @@ String preparition_time = "";
 String preparation = "";
 String line = "";
 boolean startPrint = false;
-boolean printItToPrinterToo = false;
+boolean printItToPrinterToo = true;
 
 
 // Initialize the Ethernet client library
@@ -49,9 +48,6 @@ EthernetClient client;
 void setup() {
  // Open serial communications and wait for port to open:
   Serial.begin(9600);
-   while (!Serial) {
-    ; // wait for serial port to connect. Needed for Leonardo only
-  }
   if(printItToPrinterToo){
     pinMode(7, OUTPUT); digitalWrite(7, LOW); // To also work w/IoTP printer
     printer.begin();
@@ -69,12 +65,13 @@ void setup() {
   Serial.println("connecting...");
   // if you get a connection, report back via serial:
   if (client.connect(server, 80)) {
-    Serial.println("connected");
+    Serial.println("cönnected");
     // Make a HTTP request:
     //client.println("GET /indexRaw.php?emo=1&ratio= HTTP/1.1");
-    client.println("GET /index2.html HTTP/1.1");
+    client.println("GET /indexTest.php HTTP/1.1");
     client.println("Host: rezept.dshini.dev.mediaman.de");
-    client.println("Content-Type: application/x-www-form-urlencoded; charset=iso-8859-1");
+    //client.println("Content-Type: application/x-www-form-urlencoded; charset=iso-8859-1");
+    client.println("Content-Type: application/x-www-form-urlencoded; charset=cp437");
     client.println();
   } 
   else {
@@ -84,37 +81,69 @@ void setup() {
   
 }
 
+boolean specialChar = false;
 void loop()
 {
   // if there are incoming bytes available 
   // from the server, read them and print them:
   if (client.available()) {
     char c = client.read();
-    line = line + c;
-    if(c == '\n'){
-      if(startPrint){
-        if(line.startsWith("::")){
-          Serial.print("COMMAND");
-          Serial.print(line);
-          if(printItToPrinterToo){
-            if(line.startsWith("::doubleHeightOn")){
-              printer.doubleHeightOn();
+    
+    Serial.print(int(c));
+    Serial.print(", ");
+
+    if(int(c) == -61){
+      specialChar = true;
+    }else if(specialChar == true){
+      if(int(c) == -68) c = 129;
+      if(int(c) == -74) c = 148;
+      if(int(c) == -92) c = 132;
+      if(int(c) == -97) c = 225;
+      if(int(c) == -100) c = 154;
+      if(int(c) == -106) c = 153;
+      if(int(c) == -124) c = 142;
+      specialChar = false;
+    }
+
+    /*
+    if(int(c) == -4) c = 'u';
+    if(int(c) == -10) c = 148;
+    if(int(c) == -28) c = 'a';
+    if(int(c) == -33) c = 's';
+    if(int(c) == -36) c = 'U';
+    if(int(c) == -42) c = 'O';
+    if(int(c) == -60) c = 'A';
+    */
+//-4, -10, -28, -33, 10, üöäß
+//-36, -42, -60, 10, ÜÖÄ
+    if(specialChar == false){
+
+      line = line + c;
+      if(c == '\n'){
+        if(startPrint){
+          if(line.startsWith("::")){
+            Serial.print("COMMAND");
+            Serial.print(line);
+            if(printItToPrinterToo){
+              if(line.startsWith("::doubleHeightOn")){
+                printer.doubleHeightOn();
+              }
+              if(line.startsWith("::doubleHeightOff")){
+                printer.doubleHeightOff();
+              }
             }
-            if(line.startsWith("::doubleHeightOff")){
-              printer.doubleHeightOff();
+          }else{
+            Serial.print(line);
+            if(printItToPrinterToo){
+              printer.print(line);
             }
-          }
-        }else{
-          Serial.print(line);
-          if(printItToPrinterToo){
-            printer.println(line);
           }
         }
+        if(line.startsWith("::BEGIN")){
+          startPrint = true;
+        }
+        line = "";
       }
-      if(line.startsWith("::BEGIN")){
-        startPrint = true;
-      }
-      line = "";
     }
   }
 
@@ -133,29 +162,3 @@ void loop()
   }
 }
 
-/**
- * Parse the JSON String. Uses aJson library
- * 
- * Refer to http://hardwarefun.com/tutorials/parsing-json-in-arduino
- */
-char* parseJson(char *jsonString) 
-{
-    char* value;
-
-    aJsonObject* root = aJson.parse(jsonString);
-
-    if (root != NULL) {
-        //Serial.println("Parsed successfully 1 " );
-        aJsonObject* created_at = aJson.getObjectItem(root, "created_at"); 
-
-       value = created_at->valuestring;
-    }else{
-      Serial.println('root is NULL');
-    }
-
-    if (value) {
-        return value;
-    } else {
-        return NULL;
-    }
-}
