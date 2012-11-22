@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/html; charset=ASCII');
+header('Content-Type: text/html; charset=utf-8');
 
 $emotionalParam = $_GET['emo'];
 $rationalParam = $_GET['ratio'];

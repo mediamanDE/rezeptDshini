@@ -67,8 +67,8 @@ void setup() {
   if (client.connect(server, 80)) {
     Serial.println("cönnected");
     // Make a HTTP request:
-    //client.println("GET /indexRaw.php?emo=1&ratio= HTTP/1.1");
-    client.println("GET /indexTest.php HTTP/1.1");
+    client.println("GET /indexRaw.php?emo=1&ratio= HTTP/1.1");
+    //client.println("GET /indexTest.php HTTP/1.1");
     client.println("Host: rezept.dshini.dev.mediaman.de");
     //client.println("Content-Type: application/x-www-form-urlencoded; charset=iso-8859-1");
     client.println("Content-Type: application/x-www-form-urlencoded; charset=cp437");
@@ -78,7 +78,6 @@ void setup() {
     // kf you didn't get a connection to the server:
     Serial.println("connection failed");
   }
-  
 }
 
 boolean specialChar = false;
@@ -89,33 +88,24 @@ void loop()
   if (client.available()) {
     char c = client.read();
     
-    Serial.print(int(c));
-    Serial.print(", ");
+    if(startPrint){
+      Serial.print(int(c));
+      Serial.print(", ");
+    }
 
     if(int(c) == -61){
       specialChar = true;
     }else if(specialChar == true){
-      if(int(c) == -68) c = 129;
-      if(int(c) == -74) c = 148;
-      if(int(c) == -92) c = 132;
-      if(int(c) == -97) c = 225;
-      if(int(c) == -100) c = 154;
-      if(int(c) == -106) c = 153;
-      if(int(c) == -124) c = 142;
+      if(int(c) == -68) c = 129; //ü
+      else if(int(c) == -74) c = 148; //ö
+      else if(int(c) == -92) c = 132; //ä
+      else if(int(c) == -97) c = 225; //ß
+      else if(int(c) == -100) c = 154;//Ü  
+      else if(int(c) == -106) c = 153;//Ö
+      else if(int(c) == -124) c = 142;//Ä
       specialChar = false;
     }
 
-    /*
-    if(int(c) == -4) c = 'u';
-    if(int(c) == -10) c = 148;
-    if(int(c) == -28) c = 'a';
-    if(int(c) == -33) c = 's';
-    if(int(c) == -36) c = 'U';
-    if(int(c) == -42) c = 'O';
-    if(int(c) == -60) c = 'A';
-    */
-//-4, -10, -28, -33, 10, üöäß
-//-36, -42, -60, 10, ÜÖÄ
     if(specialChar == false){
 
       line = line + c;
