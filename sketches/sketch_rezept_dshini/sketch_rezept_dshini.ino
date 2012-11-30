@@ -67,8 +67,8 @@ void setup() {
   if (client.connect(server, 80)) {
     Serial.println("cönnected");
     // Make a HTTP request:
-    client.println("GET /indexRaw.php?emo=1&ratio= HTTP/1.1");
-    //client.println("GET /indexTest.php HTTP/1.1");
+    //client.println("GET /indexRaw.php?emo=1&ratio= HTTP/1.1");
+    client.println("GET /indexRawTest.php HTTP/1.1");
     client.println("Host: rezept.dshini.dev.mediaman.de");
     //client.println("Content-Type: application/x-www-form-urlencoded; charset=iso-8859-1");
     client.println("Content-Type: application/x-www-form-urlencoded; charset=cp437");
@@ -81,6 +81,7 @@ void setup() {
 }
 
 boolean specialChar = false;
+char specialCharChar;
 void loop()
 {
   // if there are incoming bytes available 
@@ -93,16 +94,23 @@ void loop()
       Serial.print(", ");
     }
 
-    if(int(c) == -61){
+    if(int(c) == -61 || int(c) == -62){
       specialChar = true;
+      specialCharChar = c;
     }else if(specialChar == true){
-      if(int(c) == -68) c = 129; //ü
-      else if(int(c) == -74) c = 148; //ö
-      else if(int(c) == -92) c = 132; //ä
-      else if(int(c) == -97) c = 225; //ß
-      else if(int(c) == -100) c = 154;//Ü  
-      else if(int(c) == -106) c = 153;//Ö
-      else if(int(c) == -124) c = 142;//Ä
+      if(int(specialCharChar) == -61){
+        if(int(c) == -68) c = 129; //ü
+        else if(int(c) == -74) c = 148; //ö
+        else if(int(c) == -92) c = 132; //ä
+        else if(int(c) == -97) c = 225; //ß
+        else if(int(c) == -100) c = 154;//Ü  
+        else if(int(c) == -106) c = 153;//Ö
+        else if(int(c) == -124) c = 142;//Ä
+      }else if(int(specialCharChar) == -62){
+        if(int(c) == -80) c = 248;//°
+        else if(int(c) == -68) c = 171;// 1/2
+        else if(int(c) == -67) c = 172;// 1/4
+      }
       specialChar = false;
     }
 
@@ -115,11 +123,20 @@ void loop()
             Serial.print("COMMAND");
             Serial.print(line);
             if(printItToPrinterToo){
-              if(line.startsWith("::doubleHeightOn")){
-                printer.doubleHeightOn();
-              }
-              if(line.startsWith("::doubleHeightOff")){
-                printer.doubleHeightOff();
+              if(line.startsWith("::L")){
+                printer.setSize('L');
+              }else if(line.startsWith("::M")){
+                printer.setSize('M');
+              }else if(line.startsWith("::S")){
+                printer.setSize('S');
+              }else if(line.startsWith("::JC")){
+                printer.justify('C');
+              }else if(line.startsWith("::JL")){
+                printer.justify('L');
+              }else if(line.startsWith("::BOLD")){
+                printer.boldOn();
+              }else if(line.startsWith("::NORMAL")){
+                printer.boldOff();
               }
             }
           }else{
@@ -142,9 +159,12 @@ void loop()
     Serial.println();
     Serial.println("disconnecting.");
 
-    printer.sleep();      // Tell printer to sleep
-    printer.wake();       // MUST call wake() before printing again, even if reset
-    printer.setDefault(); // Restore printer to defaults    client.stop();
+    if(printItToPrinterToo){
+      printer.feed(3);
+      printer.sleep();      // Tell printer to sleep
+      printer.wake();       // MUST call wake() before printing again, even if reset
+      printer.setDefault(); // Restore printer to defaults    client.stop();
+    }
 
     // do nothing forevermore:
     for(;;)
