@@ -39,11 +39,11 @@ int printer_TX_Pin = 23;  // This is the yellow wire
 
 // notes in the melody:
 int melody[] = {
-  NOTE_C4, NOTE_G3,NOTE_G3, NOTE_A3, NOTE_G3,0, NOTE_B3, NOTE_C4};
+  NOTE_A5, NOTE_A4};
 
 // note durations: 4 = quarter note, 8 = eighth note, etc.:
 int noteDurations[] = {
-  4, 8, 8, 4,4,4,4,4 };
+  4, 8 };
   
 // define Tone pin
 int tonePin = 49;
@@ -374,7 +374,7 @@ boolean executeRecipe() {
 
 void zumEssen() {
   // iterate over the notes of the melody:
-  for (int thisNote = 0; thisNote < 8; thisNote++) {
+  for (int thisNote = 0; thisNote < 2; thisNote++) {
 
     // to calculate the note duration, take one second 
     // divided by the note type.
