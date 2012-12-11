@@ -18,6 +18,7 @@
 #include <Adafruit_Thermal.h>
 #include <SoftwareSerial.h>
 #include "pitches.h"
+#include "Jongleur2.h"
 
 #define FONT_END7F //chars: 0x20-0xFF
 
@@ -177,6 +178,7 @@ void loop()
   if(executionFinished == false){
     if(executeRecipe()) {
       executionFinished = true;
+      printer.printBitmap(Jongleur2_width, Jongleur2_height, Jongleur2_data); //Print Jongleur Bitmap
       zumEssen();
     }
   }
