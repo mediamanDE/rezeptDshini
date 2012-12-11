@@ -21,12 +21,12 @@
 
 #define FONT_END7F //chars: 0x20-0xFF
 
-#define LED_1 7
-#define LED_2 8
-#define LED_3 9
-#define LED_4 11
-#define LED_5 12
-#define LED_6 13
+#define LED_1 13
+#define LED_2 12
+#define LED_3 11
+#define LED_4 9
+#define LED_5 8
+#define LED_6 7
 
 // Enter a MAC address for your controller below.
 // Newer Ethernet shields have a MAC address printed on a sticker on the shield
@@ -69,7 +69,14 @@ int buttonStateRational = 0;         // variable for reading the button status
 int buttonStateEmotional = 0;         // variable for reading the button status
 
 int brightness = 0;    // how bright the LED is
-int fadeAmount = 5;
+int brightnessRest = 70;  // delay * value
+int brightnessRestCounter = 0;
+int fadeAmount = 1;
+int brightness1 = 0;
+int brightness2 = 0;
+int brightness3 = 0;
+int brightness4 = 0;
+int brightness5 = 0;
   
   
 
@@ -130,6 +137,117 @@ void setup() {
   
  // Open serial communications and wait for port to open:
   Serial.begin(9600);
+
+  
+ brightness = 0;
+  /*
+  Serial.println(digitalRead(buttonPinGo));
+  
+  Serial.println(digitalRead(buttonPinRational_1));
+  Serial.println(digitalRead(buttonPinRational_2));
+  Serial.println(digitalRead(buttonPinRational_3));
+  Serial.println(digitalRead(buttonPinRational_4));
+  Serial.println(digitalRead(buttonPinRational_5));
+  Serial.println(digitalRead(buttonPinRational_6));
+  
+  Serial.println(digitalRead(buttonPinEmotional_1));
+  Serial.println(digitalRead(buttonPinEmotional_2));
+  Serial.println(digitalRead(buttonPinEmotional_3));
+  Serial.println(digitalRead(buttonPinEmotional_4));
+  */
+  //lauflichtAussen();
+    initExecution();
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+boolean executionFinished = false;
+void loop()
+{
+  if(executionFinished){
+    changeBrightness();
+    delay(30);
+    analogWrite(LED_6, brightness);
+    finishExecutionDisplay();
+  }
+  
+  //if(digitalRead(buttonPinGo)){
+  if(executionFinished == false){
+    if(executeRecipe()) {
+      executionFinished = true;
+      zumEssen();
+    }
+  }
+}
+// Ende Loop
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void executionDisplay(){
+  int executionStep = 5;
+  if(brightness5 == 0   && brightness1 < 255) brightness1+=executionStep;
+  if(brightness1 == 255 && brightness2 < 255) brightness2+=executionStep;
+  if(brightness2 == 255 && brightness3 < 255) brightness3+=executionStep;
+  if(brightness3 == 255 && brightness4 < 255) brightness4+=executionStep;
+  if(brightness4 == 255 && brightness5 < 255) brightness5+=executionStep;
+  
+  if(brightness5 == 255  && brightness1 > 0) brightness1-=executionStep;
+  if(brightness1 == 0    && brightness2 > 0) brightness2-=executionStep;
+  if(brightness2 == 0    && brightness3 > 0) brightness3-=executionStep;
+  if(brightness3 == 0    && brightness4 > 0) brightness4-=executionStep;
+  if(brightness4 == 0    && brightness5 > 0) brightness5-=executionStep;
+
+  //Serial.println("executionDisplay brightness1-5: " + String(brightness1) + ", " + String(brightness2) + ", " + String(brightness3) + ", " + String(brightness4) + ", " + String(brightness5) + ", ");
+  analogWrite(LED_1, brightness1); 
+  analogWrite(LED_2, brightness2); 
+  analogWrite(LED_3, brightness3); 
+  analogWrite(LED_4, brightness4); 
+  analogWrite(LED_5, brightness5); 
+}
+
+void finishExecutionDisplay(){
+  if(brightness1 > 0 || brightness2 > 0 || brightness3 > 0 || brightness4 > 0 || brightness5 > 0){
+    if(brightness1 > 0){
+      brightness1--;
+    }else if(brightness2 > 0){
+      brightness2--;
+    }else if(brightness3 > 0){
+      brightness3--;
+    }else if(brightness4 > 0){
+      brightness4--;
+    }else if(brightness5 > 0){
+      brightness5--;
+    }
+  
+    //Serial.println("finishExecutionDisplay brightness1-5: " + String(brightness1) + ", " + String(brightness2) + ", " + String(brightness3) + ", " + String(brightness4) + ", " + String(brightness5) + ", ");
+    analogWrite(LED_1, brightness1); 
+    analogWrite(LED_2, brightness2); 
+    analogWrite(LED_3, brightness3); 
+    analogWrite(LED_4, brightness4); 
+    analogWrite(LED_5, brightness5); 
+  }
+}
+
+
+void changeBrightness() {
+  if(brightnessRestCounter > 0){
+    brightnessRestCounter--;
+  }else{
+    brightness += fadeAmount;
+    if(brightness == 255) {
+      fadeAmount = -fadeAmount;
+    }else if(brightness == 0) {
+      fadeAmount = -fadeAmount;
+      brightnessRestCounter = brightnessRest;
+    }
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void initExecution() {
   if(printItToPrinterToo){
     pinMode(7, OUTPUT); digitalWrite(7, LOW); // To also work w/IoTP printer
     printer.begin();
@@ -149,8 +267,8 @@ void setup() {
   if (client.connect(server, 80)) {
     Serial.println("cönnected");
     // Make a HTTP request:
-    //client.println("GET /indexRaw.php?emo=1&ratio= HTTP/1.1");
-    client.println("GET /indexRawTest.php HTTP/1.1");
+    client.println("GET /indexRaw.php?emo=1&ratio= HTTP/1.1");
+    //client.println("GET /indexRawTest.php HTTP/1.1");
     client.println("Host: rezept.dshini.dev.mediaman.de");
     //client.println("Content-Type: application/x-www-form-urlencoded; charset=iso-8859-1");
     client.println("Content-Type: application/x-www-form-urlencoded; charset=cp437");
@@ -160,28 +278,20 @@ void setup() {
     // kf you didn't get a connection to the server:
     Serial.println("connection failed");
   }
-  
- 
-  
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-void loop()
-{
+boolean executeRecipe() {
   // if there are incoming bytes available 
   // from the server, read them and print them:
-  if (client.available()) {
+  while (client.available()) {
+    executionDisplay();
     char c = client.read();
-    
+    /*
     if(startPrint){
       Serial.print(int(c));
       Serial.print(", ");
     }
-
+    */
     if(int(c) == -61 || int(c) == -62){
       specialChar = true;
       specialCharChar = c;
@@ -254,17 +364,10 @@ void loop()
       printer.setDefault(); // Restore printer to defaults    client.stop();
     }
 
-    // do nothing forevermore:
-    for(;;)
-      ;
-  }
+    return true;
+  }  
+  return false;
 }
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 
 void zumEssen() {
@@ -284,142 +387,6 @@ void zumEssen() {
     // stop the tone playing:
     noTone(tonePin);
   }
-}
-
-
-
-// Ende Loop
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-void fadeAussen()  { 
- 
-  analogWrite(LED_1, brightness);   
-  analogWrite(LED_2, brightness);
-  analogWrite(LED_3, brightness);
-  analogWrite(LED_4, brightness);
-  analogWrite(LED_5, brightness);
-
-  // change the brightness for next time through the loop:
-  brightness = brightness + fadeAmount;
-
-  // reverse the direction of the fading at the ends of the fade: 
-  if (brightness == 0 || brightness == 255) {
-    fadeAmount = -fadeAmount ; 
-  }     
-  // wait for 30 milliseconds to see the dimming effect    
-  delay(30);                            
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-void fadeInnen()  { 
- 
-  analogWrite(LED_6, brightness); 
-
-  // change the brightness for next time through the loop:
-  brightness = brightness + fadeAmount;
-
-  // reverse the direction of the fading at the ends of the fade: 
-  if (brightness == 0 || brightness == 255) {
-    fadeAmount = -fadeAmount ; 
-  }     
-  // wait for 30 milliseconds to see the dimming effect    
-  delay(30);                            
-}
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-void lauflichtAussen()  { 
- 
-  do 
-  {
-    brightness = brightness + fadeAmount;
-    analogWrite(LED_1, brightness);   
-  }
-  while (brightness < 255);
-
-  do 
-  {
-    brightness = brightness + fadeAmount;
-    analogWrite(LED_2, brightness);   
-  }
-  while (brightness < 255);
-
-  do 
-  {
-    brightness = brightness + fadeAmount;
-    analogWrite(LED_3, brightness);   
-  }
-  while (brightness < 255);
-
-  do 
-  {
-    brightness = brightness + fadeAmount;
-    analogWrite(LED_4, brightness);   
-  }
-  while (brightness < 255);
-
-  do 
-  {
-    brightness = brightness + fadeAmount;
-    analogWrite(LED_5, brightness);   
-  }
-  while (brightness < 255);
-
-////////
-  
-  delay (1000);
-  
-  
-////////
-
-  do 
-  {
-    brightness = brightness - fadeAmount;
-    analogWrite(LED_1, brightness);   
-  }
-  while (brightness > 0);
-
-  do 
-  {
-    brightness = brightness - fadeAmount;
-    analogWrite(LED_2, brightness);   
-  }
-  while (brightness > 0);
-
-  do 
-  {
-    brightness = brightness - fadeAmount;
-    analogWrite(LED_3, brightness);   
-  }
-  while (brightness > 0);
-
-  do 
-  {
-    brightness = brightness - fadeAmount;
-    analogWrite(LED_4, brightness);   
-  }
-  while (brightness > 0);
-
-  do 
-  {
-    brightness = brightness - fadeAmount;
-    analogWrite(LED_5, brightness);   
-  }
-  while (brightness > 0);
-  
-                           
 }
 
 
