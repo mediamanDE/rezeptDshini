@@ -42,27 +42,26 @@ int melody[] = {
   NOTE_A5, NOTE_A4};
 
 // note durations: 4 = quarter note, 8 = eighth note, etc.:
-int noteDurations[] = {
-  4, 8 };
+int noteDurations[] = {4, 8};
   
 // define Tone pin
-int tonePin = 49;
+int tonePin = 47;
   
   
-const int buttonPinGo = 24;     // the number of the pushbutton pin
+const int buttonPinGo = 43;     // the number of the pushbutton pin
 
-const int buttonPinRational_1 = 26;     // the number of the pushbutton pin
-const int buttonPinRational_2 = 28;     // the number of the pushbutton pin
-const int buttonPinRational_3 = 30;     // the number of the pushbutton pin
-const int buttonPinRational_4 = 32;     // the number of the pushbutton pin
-const int buttonPinRational_5 = 34;     // the number of the pushbutton pin
-const int buttonPinRational_6 = 36;     // the number of the pushbutton pin
+const int buttonPinRational_1 = 28;     // the number of the pushbutton pin
+const int buttonPinRational_2 = 32;     // the number of the pushbutton pin
+const int buttonPinRational_3 = 36;     // the number of the pushbutton pin
+const int buttonPinRational_4 = 40;     // the number of the pushbutton pin
+const int buttonPinRational_5 = 44;     // the number of the pushbutton pin
+const int buttonPinRational_6 = 46;     // the number of the pushbutton pin
 
 
 const int buttonPinEmotional_1 = 27;     // the number of the pushbutton pin
-const int buttonPinEmotional_2 = 29;     // the number of the pushbutton pin
-const int buttonPinEmotional_3 = 31;     // the number of the pushbutton pin
-const int buttonPinEmotional_4 = 33;     // the number of the pushbutton pin
+const int buttonPinEmotional_2 = 31;     // the number of the pushbutton pin
+const int buttonPinEmotional_3 = 35;     // the number of the pushbutton pin
+const int buttonPinEmotional_4 = 39;     // the number of the pushbutton pin
 
 
 int buttonStateGo = 0;         // variable for reading the button status
@@ -91,11 +90,12 @@ String preparition_time = "";
 String preparation = "";
 String line = "";
 boolean startPrint = false;
-boolean printItToPrinterToo = true;
 boolean specialChar = false;
 char specialCharChar;
 
-
+// config
+boolean printItToPrinterToo = true;
+boolean playSound = true;
 
 
 // Initialize the Ethernet client library
@@ -112,6 +112,18 @@ EthernetClient client;
 
 
 void setup() {
+  if(printItToPrinterToo){
+    pinMode(7, OUTPUT); digitalWrite(7, LOW); // To also work w/IoTP printer
+    printer.begin();
+  }
+
+  // start the Ethernet connection:
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // no point in carrying on, so do nothing forevermore:
+    for(;;)
+      ;
+  }
     
   pinMode(LED_1, OUTPUT);  // LED is an OUTPUT 
   pinMode(LED_2, OUTPUT);  // LED is an OUTPUT 
@@ -120,44 +132,23 @@ void setup() {
   pinMode(LED_5, OUTPUT);  // LED is an OUTPUT 
   pinMode(LED_6, OUTPUT);  // LED is an OUTPUT 
   
-  pinMode(buttonPinGo, INPUT);     
+  pinMode(buttonPinGo, INPUT_PULLUP);     
   
-  pinMode(buttonPinRational_1, INPUT);
-  pinMode(buttonPinRational_2, INPUT);
-  pinMode(buttonPinRational_3, INPUT);
-  pinMode(buttonPinRational_4, INPUT);
-  pinMode(buttonPinRational_5, INPUT);
-  pinMode(buttonPinRational_6, INPUT);
+  pinMode(buttonPinRational_1, INPUT_PULLUP);
+  pinMode(buttonPinRational_2, INPUT_PULLUP);
+  pinMode(buttonPinRational_3, INPUT_PULLUP);
+  pinMode(buttonPinRational_4, INPUT_PULLUP);
+  pinMode(buttonPinRational_5, INPUT_PULLUP);
+  pinMode(buttonPinRational_6, INPUT_PULLUP);
   
-  pinMode(buttonPinEmotional_1, INPUT);
-  pinMode(buttonPinEmotional_2, INPUT);
-  pinMode(buttonPinEmotional_3, INPUT);
-  pinMode(buttonPinEmotional_4, INPUT);
+  pinMode(buttonPinEmotional_1, INPUT_PULLUP);
+  pinMode(buttonPinEmotional_2, INPUT_PULLUP);
+  pinMode(buttonPinEmotional_3, INPUT_PULLUP);
+  pinMode(buttonPinEmotional_4, INPUT_PULLUP);
 
-  
-  
  // Open serial communications and wait for port to open:
   Serial.begin(9600);
-
-  
- brightness = 0;
-  /*
-  Serial.println(digitalRead(buttonPinGo));
-  
-  Serial.println(digitalRead(buttonPinRational_1));
-  Serial.println(digitalRead(buttonPinRational_2));
-  Serial.println(digitalRead(buttonPinRational_3));
-  Serial.println(digitalRead(buttonPinRational_4));
-  Serial.println(digitalRead(buttonPinRational_5));
-  Serial.println(digitalRead(buttonPinRational_6));
-  
-  Serial.println(digitalRead(buttonPinEmotional_1));
-  Serial.println(digitalRead(buttonPinEmotional_2));
-  Serial.println(digitalRead(buttonPinEmotional_3));
-  Serial.println(digitalRead(buttonPinEmotional_4));
-  */
-  //lauflichtAussen();
-    initExecution();
+  Serial.println("Ready");
 }
 
 
@@ -167,27 +158,87 @@ void setup() {
 boolean executionFinished = false;
 void loop()
 {
-  if(executionFinished){
-    changeBrightness();
-    delay(30);
-    analogWrite(LED_6, brightness);
-    finishExecutionDisplay();
-  }
-  
-  //if(digitalRead(buttonPinGo)){
-  if(executionFinished == false){
-    if(executeRecipe()) {
-      executionFinished = true;
-      printer.printBitmap(Jongleur2_width, Jongleur2_height, Jongleur2_data); //Print Jongleur Bitmap
-      zumEssen();
+  changeBrightness();
+  delay(30);
+  analogWrite(LED_6, brightness);
+  finishExecutionDisplay();
+
+  if(digitalRead(buttonPinGo) == 0){
+    Serial.println("Start");
+    //Serial.println("buttonPinGo: " + String(digitalRead(buttonPinGo)));
+    Serial.print("buttonPinRational: ");
+    Serial.print(String(digitalRead(buttonPinRational_1)) + " ");
+    Serial.print(String(digitalRead(buttonPinRational_2)) + " ");
+    Serial.print(String(digitalRead(buttonPinRational_3)) + " ");
+    Serial.print(String(digitalRead(buttonPinRational_4)) + " ");
+    Serial.print(String(digitalRead(buttonPinRational_5)) + " ");
+    Serial.print(String(digitalRead(buttonPinRational_6)) + " ");
+    Serial.print("= " + String(getRationalButtonValue()));
+    Serial.println(" ");
+    Serial.print("buttonPinRational: ");
+    Serial.print(String(digitalRead(buttonPinEmotional_1)) + " ");
+    Serial.print(String(digitalRead(buttonPinEmotional_2)) + " ");
+    Serial.print(String(digitalRead(buttonPinEmotional_3)) + " ");
+    Serial.print(String(digitalRead(buttonPinEmotional_4)) + " ");
+    Serial.print("= " + String(getEmotionalButtonValue()));
+    Serial.println(" ");
+    Serial.println("-------------------------------------");
+    if(getRationalButtonValue() <= 4 && getEmotionalButtonValue() <=6){
+      initExecution();
+      brightness = 254; //254 weil in changeBrightness zu Anfang eins aufaddiert wird
+      analogWrite(LED_6, brightness);
+      while(executeRecipe() == false);
+      if(playSound) zumEssen();
+      Serial.println("finished");
+    }else{
+      printErrorMessage();
     }
+    delay(500);
   }
 }
 // Ende Loop
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+int getRationalButtonValue(){
+  if(digitalRead(buttonPinRational_1) == 0) return 1;
+  if(digitalRead(buttonPinRational_2) == 0) return 2;
+  if(digitalRead(buttonPinRational_3) == 0) return 3;
+  if(digitalRead(buttonPinRational_4) == 0) return 4;
+  if(digitalRead(buttonPinRational_5) == 0) return 5;
+  if(digitalRead(buttonPinRational_6) == 0) return 6;
+  return 6;
+}
+
+int getEmotionalButtonValue(){
+  int b1 = digitalRead(buttonPinEmotional_1);
+  int b2 = digitalRead(buttonPinEmotional_2);
+  int b3 = digitalRead(buttonPinEmotional_3);
+  int b4 = digitalRead(buttonPinEmotional_4);
+  if(b1 && !b2 && b3 && b4) return 1; // 1 0 1 1
+  if(!b1 && b2 && !b3 && b4) return 2; // 0 1 0 1  
+  if(b1 && !b2 && !b3 && b4) return 3; // 1 0 0 1  
+  if(!b1 && b2 && !b3 && !b4) return 4; // 0 1 0 0  
+  if(b1 && !b2 && !b3 && !b4) return 5; // 1 0 0 0  
+  if(b1 && b2 && b3 && b4) return 6; // 1 1 1 1  
+  if(!b1 && b2 && b3 && b4) return 7; // 0 1 1 1
+  return 8;
+}
+
+void printErrorMessage(){
+  Serial.println("404");
+  if(playSound) zumEssen();
+  if(printItToPrinterToo){
+    printer.println("404 ratio > 4 and emo > 6 are not supported");
+    printer.printBitmap(Jongleur2_width, Jongleur2_height, Jongleur2_data); //Print Jongleur Bitmap
+    printer.feed(5);
+    printer.sleep();      // Tell printer to sleep
+    printer.wake();       // MUST call wake() before printing again, even if reset
+    printer.setDefault(); // Restore printer to defaults    client.stop();
+  }
+}
+
 void executionDisplay(){
-  int executionStep = 5;
+  int executionStep = 15;
   if(brightness5 == 0   && brightness1 < 255) brightness1+=executionStep;
   if(brightness1 == 255 && brightness2 < 255) brightness2+=executionStep;
   if(brightness2 == 255 && brightness3 < 255) brightness3+=executionStep;
@@ -209,17 +260,18 @@ void executionDisplay(){
 }
 
 void finishExecutionDisplay(){
+  int executionStep = 5;
   if(brightness1 > 0 || brightness2 > 0 || brightness3 > 0 || brightness4 > 0 || brightness5 > 0){
     if(brightness1 > 0){
-      brightness1--;
+      brightness1-=executionStep;
     }else if(brightness2 > 0){
-      brightness2--;
+      brightness2-=executionStep;
     }else if(brightness3 > 0){
-      brightness3--;
+      brightness3-=executionStep;
     }else if(brightness4 > 0){
-      brightness4--;
+      brightness4-=executionStep;
     }else if(brightness5 > 0){
-      brightness5--;
+      brightness5-=executionStep;
     }
   
     //Serial.println("finishExecutionDisplay brightness1-5: " + String(brightness1) + ", " + String(brightness2) + ", " + String(brightness3) + ", " + String(brightness4) + ", " + String(brightness5) + ", ");
@@ -250,43 +302,30 @@ void changeBrightness() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void initExecution() {
-  if(printItToPrinterToo){
-    pinMode(7, OUTPUT); digitalWrite(7, LOW); // To also work w/IoTP printer
-    printer.begin();
-  }
-
-  // start the Ethernet connection:
-  if (Ethernet.begin(mac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
-    // no point in carrying on, so do nothing forevermore:
-    for(;;)
-      ;
-  }
-  // give the Ethernet shield a second to initialize:
-  delay(1000);
   Serial.println("connecting...");
+  client.flush();
+  Serial.println("connected: " + String(client.connected()));
   // if you get a connection, report back via serial:
   if (client.connect(server, 80)) {
-    Serial.println("cönnected");
+    Serial.println("connected");
     // Make a HTTP request:
-    client.println("GET /indexRaw.php?emo=1&ratio= HTTP/1.1");
+    client.println("GET /indexRaw.php?emo=" + String(getEmotionalButtonValue()) + "&ratio=" + String(getRationalButtonValue()) + " HTTP/1.1");
     //client.println("GET /indexRawTest.php HTTP/1.1");
     client.println("Host: rezept.dshini.dev.mediaman.de");
     //client.println("Content-Type: application/x-www-form-urlencoded; charset=iso-8859-1");
     client.println("Content-Type: application/x-www-form-urlencoded; charset=cp437");
     client.println();
-  } 
-  else {
+  } else {
     // kf you didn't get a connection to the server:
     Serial.println("connection failed");
   }
 }
 
 boolean executeRecipe() {
+  startPrint = false; 
   // if there are incoming bytes available 
   // from the server, read them and print them:
   while (client.available()) {
-    executionDisplay();
     char c = client.read();
     /*
     if(startPrint){
@@ -318,6 +357,8 @@ boolean executeRecipe() {
 
       line = line + c;
       if(c == '\n'){
+        executionDisplay();
+        //Serial.println("executionDisplay");
         if(startPrint){
           if(line.startsWith("::")){
             Serial.print("COMMAND");
@@ -340,9 +381,18 @@ boolean executeRecipe() {
               }
             }
           }else{
-            Serial.print(line);
-            if(printItToPrinterToo){
-              printer.print(line);
+            int charPos = 0;
+            int charCount = 0;
+            for(charPos = 0; charPos < line.length(); charPos++, charCount++){
+              //Serial.println(line.length());
+              if(charCount == 2){
+                charCount = 0;
+                executionDisplay();
+              }
+              Serial.print(line[charPos]);
+              if(printItToPrinterToo){
+                printer.print(line[charPos]);
+              }
             }
           }
         }
@@ -358,9 +408,12 @@ boolean executeRecipe() {
   if (!client.connected()) {
     Serial.println();
     Serial.println("disconnecting.");
+    client.stop();
 
     if(printItToPrinterToo){
       printer.feed(3);
+      printer.printBitmap(Jongleur2_width, Jongleur2_height, Jongleur2_data); //Print Jongleur Bitmap
+      printer.feed(5);
       printer.sleep();      // Tell printer to sleep
       printer.wake();       // MUST call wake() before printing again, even if reset
       printer.setDefault(); // Restore printer to defaults    client.stop();
