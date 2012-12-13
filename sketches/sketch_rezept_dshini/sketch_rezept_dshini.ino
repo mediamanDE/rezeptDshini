@@ -40,9 +40,16 @@ int printer_TX_Pin = 23;  // This is the yellow wire
 // notes in the melody:
 int melody[] = {
   NOTE_A5, NOTE_A4};
+  
+  // note durations: 4 = quarter note, 8 = eighth note, etc.:
+int noteDurations[] = {4, 8};
+
+// notes in the melody:
+int melody404[] = {
+  NOTE_A4, NOTE_GS4, NOTE_G4, NOTE_FS4, NOTE_F4, NOTE_E4};
 
 // note durations: 4 = quarter note, 8 = eighth note, etc.:
-int noteDurations[] = {4, 8};
+int noteDurations404[] = {32, 32, 32, 32, 32, 32};
   
 // define Tone pin
 int tonePin = 47;
@@ -226,11 +233,14 @@ int getEmotionalButtonValue(){
 
 void printErrorMessage(){
   Serial.println("404");
-  if(playSound) zumEssen();
+  if(playSound) zumFehler();
   if(printItToPrinterToo){
-    printer.println("404 ratio > 4 and emo > 6 are not supported");
-    printer.printBitmap(Jongleur2_width, Jongleur2_height, Jongleur2_data); //Print Jongleur Bitmap
+    printer.feed(1);
+    printer.printBitmap(Jongleur404_width, Jongleur404_height, Jongleur404_data); //Print Jongleur Bitmap
+    printer.feed(3);
+    printer.println("OH NEIN! Da ist etwas falsch gelaufen. Einer oder beide Drehschalter stehen auf einer Position, die (noch) nicht unterstützt wird. Korrigiere die Schalterposition und versuch's noch mal!");
     printer.feed(5);
+    if(playSound) zumEssen();
     printer.sleep();      // Tell printer to sleep
     printer.wake();       // MUST call wake() before printing again, even if reset
     printer.setDefault(); // Restore printer to defaults    client.stop();
@@ -443,5 +453,26 @@ void zumEssen() {
     noTone(tonePin);
   }
 }
+
+
+void zumFehler() {
+  // iterate over the notes of the melody:
+  for (int thisNote = 0; thisNote < 6; thisNote++) {
+
+    // to calculate the note duration, take one second 
+    // divided by the note type.
+    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+    int noteDuration = 1000/noteDurations404[thisNote];
+    tone(tonePin, melody404[thisNote],noteDuration);
+
+    // to distinguish the notes, set a minimum time between them.
+    // the note's duration + 30% seems to work well:
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+    // stop the tone playing:
+    noTone(tonePin);
+  }
+}
+
 
 
