@@ -18,7 +18,8 @@
 #include <Adafruit_Thermal.h>
 #include <SoftwareSerial.h>
 #include "pitches.h"
-#include "Jongleur2.h"
+#include "Jongleur.h"
+#include "Jongleur404.h"
 
 #define FONT_END7F //chars: 0x20-0xFF
 
@@ -207,13 +208,13 @@ void loop()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int getRationalButtonValue(){
-  if(digitalRead(buttonPinRational_1) == 0) return 1;
-  if(digitalRead(buttonPinRational_2) == 0) return 2;
-  if(digitalRead(buttonPinRational_3) == 0) return 3;
-  if(digitalRead(buttonPinRational_4) == 0) return 4;
-  if(digitalRead(buttonPinRational_5) == 0) return 5;
-  if(digitalRead(buttonPinRational_6) == 0) return 6;
-  return 6;
+  if(digitalRead(buttonPinRational_1) == 0) return 6;
+  if(digitalRead(buttonPinRational_2) == 0) return 5;
+  if(digitalRead(buttonPinRational_3) == 0) return 4;
+  if(digitalRead(buttonPinRational_4) == 0) return 3;
+  if(digitalRead(buttonPinRational_5) == 0) return 2;
+  if(digitalRead(buttonPinRational_6) == 0) return 1;
+  return 1;
 }
 
 int getEmotionalButtonValue(){
@@ -237,8 +238,8 @@ void printErrorMessage(){
   if(printItToPrinterToo){
     printer.feed(1);
     printer.printBitmap(Jongleur404_width, Jongleur404_height, Jongleur404_data); //Print Jongleur Bitmap
-    printer.feed(3);
-    printer.println("OH NEIN! Da ist etwas falsch gelaufen. Einer oder beide Drehschalter stehen auf einer Position, die (noch) nicht unterstützt wird. Korrigiere die Schalterposition und versuch's noch mal!");
+    printer.feed(2);
+    printer.println("OH NEIN! Da ist etwas falsch gelaufen. Einer oder beide Drehschalter stehen auf einer Position, die (noch) nicht unterstuetzt wird. Korrigiere die Schalterposition und versuch's noch mal!");
     printer.feed(5);
     if(playSound) zumEssen();
     printer.sleep();      // Tell printer to sleep
@@ -421,8 +422,8 @@ boolean executeRecipe() {
     client.stop();
 
     if(printItToPrinterToo){
-      printer.feed(3);
-      printer.printBitmap(Jongleur2_width, Jongleur2_height, Jongleur2_data); //Print Jongleur Bitmap
+      printer.feed(2);
+      printer.printBitmap(Jongleur_width, Jongleur_height, Jongleur_data); //Print Jongleur Bitmap
       printer.feed(5);
       printer.sleep();      // Tell printer to sleep
       printer.wake();       // MUST call wake() before printing again, even if reset
