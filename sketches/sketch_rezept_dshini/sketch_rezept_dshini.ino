@@ -183,7 +183,7 @@ void loop()
     Serial.print(String(digitalRead(buttonPinRational_6)) + " ");
     Serial.print("= " + String(getRationalButtonValue()));
     Serial.println(" ");
-    Serial.print("buttonPinRational: ");
+    Serial.print("buttonPinEmotional: ");
     Serial.print(String(digitalRead(buttonPinEmotional_1)) + " ");
     Serial.print(String(digitalRead(buttonPinEmotional_2)) + " ");
     Serial.print(String(digitalRead(buttonPinEmotional_3)) + " ");
