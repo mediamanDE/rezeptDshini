@@ -22,7 +22,7 @@ if(!empty($emotionalParam) || !empty($rationalParam)){
         $query .= ' AND ';
     }
     if(!empty($rationalParam)){
-        $query .= 'rational_id=' . $emotionalParam;
+        $query .= 'rational_id=' . $rationalParam;
     }
 }
 $query .= ' ORDER BY RAND() LIMIT 1';
