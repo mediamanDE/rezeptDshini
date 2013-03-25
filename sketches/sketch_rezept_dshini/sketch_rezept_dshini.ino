@@ -1,8 +1,6 @@
 /*
-  Web client
- 
- This sketch connects to a website (http://www.google.com)
- using an Arduino Wiznet Ethernet shield. 
+ Web client part of the Recipe Dshini sketch connects to a webservice
+ using an Arduino Ethernet shield. 
  
  Circuit:
  * Ethernet shield attached to pins 10, 11, 12, 13
@@ -10,6 +8,54 @@
  created 18 Dec 2009
  modified 9 Apr 2012
  by David A. Mellis
+ 
+ modified 18 Dec 2012
+ by Oliver Christ
+ 
+ /////////////////////////////////////////
+ 
+ Thermal printer part of the Recipe Dshini sketch 
+ by adafruit as included with Adafruit_Thermal library for Arduino
+ https://github.com/adafruit/Adafruit-Thermal-Printer-Library
+
+ Information how to hook up the thermal printer at
+ http://learn.adafruit.com/mini-thermal-receipt-printer
+ 
+
+  This is taken from a Arduino library for the Adafruit Thermal Printer.
+  Pick one up at --> http://www.adafruit.com/products/597
+  These printers use TTL serial to communicate, 2 pins are required.
+
+  Adafruit invests time and resources providing this open source code.
+  Please support Adafruit and open-source hardware by purchasing products
+  from Adafruit!
+
+  Written by Limor Fried/Ladyada for Adafruit Industries.
+  MIT license, all text above must be included in any redistribution.
+
+
+ /////////////////////////////////////////
+ 
+ Tone generation Part of the Recipe Dshini sketch 
+ created 21 Jan 2010
+ modified 30 Aug 2011
+ by Tom Igoe 
+ 
+ circuit:
+ * 8-ohm speaker on digital pin 8
+
+ This example code is in the public domain.
+ 
+ http://arduino.cc/en/Tutorial/Tone
+ 
+ 
+ /////////////////////////////////////////
+ 
+ Recipe Dshini Sketch
+ created 18 Dec 2012
+ by Oliver Christ 
+ and Meik Mense
+ 
  
  */
 
