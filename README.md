@@ -1,9 +1,9 @@
 # rezeptDshini
 
-Beim Rezezt Dshini handelt es sich um den Sourcecode für den umgebauten Heizlüfter neben dem Eingang. Dieser spuckt 
+Beim Rezept Dshini handelt es sich um den Sourcecode für den umgebauten Heizlüfter neben dem Eingang. Dieser spuckt 
 Rezepte auf Knopfdruck aus. Umgesetzt ist das mit Arduino und Yii PHP Framework für die Pflege der Rezepte.
 Haupttreiber für das Projekt war Meik Mense. Steven Wirges war der Entwickler für die Eingabe der Rezepte. 
-Oliver Christ unterstützte im wesentlichen bei der Lösung der Probleme mit Sonderzeichen im Ausdruck.
+Oliver Christ unterstützte im Wesentlichen bei der Lösung der Probleme mit Sonderzeichen im Ausdruck.
 
 ## excuses
 
